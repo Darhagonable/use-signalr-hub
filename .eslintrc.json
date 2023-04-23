@@ -1,0 +1,85 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/strict"
+  ],
+  "rules": {
+    "eqeqeq": [
+      "warn",
+      "always"
+    ],
+    "no-trailing-spaces": "warn",
+    "no-console": "warn",
+    "import/no-anonymous-default-export": "off",
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1,
+        "ignoredNodes": [
+          "ConditionalExpression"
+        ]
+      }
+    ],
+    "quotes": "off",
+    "@typescript-eslint/quotes": [
+      "warn",
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    "semi": "off",
+    "@typescript-eslint/semi": [
+      "warn",
+      "always"
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": [
+      "warn"
+    ],
+    "space-before-function-paren": "off",
+    "@typescript-eslint/space-before-function-paren": [
+      "warn",
+      {
+        "anonymous": "ignore",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "space-before-blocks": "off",
+    "@typescript-eslint/space-before-blocks": [
+      "warn",
+      "always"
+    ],
+    "react/jsx-tag-spacing": [
+      "warn",
+      {
+        "closingSlash": "never",
+        "beforeSelfClosing": "never",
+        "afterOpening": "never",
+        "beforeClosing": "never"
+      }
+    ],
+    "react/jsx-props-no-multi-spaces": "warn",
+    "react/jsx-equals-spacing": "warn",
+    "react/jsx-fragments": [
+      "warn",
+      "syntax"
+    ]
+  }
+}
