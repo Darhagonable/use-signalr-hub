@@ -1,17 +1,29 @@
 {
-  "name": "react-signalr",
+  "name": "use-signalr-hub",
   "version": "0.0.1",
-  "description": "Easy to use hooks for signalr",
-  "main": "index.js",
+  "description": "Easy to use hook for signalr",
+  "author": "Darhagonable",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darhagonable/use-signalr-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Darhagonable/use-signalr-hub/issues"
+  },
+  "homepage": "https://github.com/Darhagonable/use-signalr-hub#readme",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --declaration --outDir dist",
+    "lint": "eslint --fix ./src"
   },
   "peerDependencies": {
-    "@microsoft/signalr": "^6.0.1",
-    "react": "^17.0.0 || ^18.0.0" 
+    "@microsoft/signalr": "^7.0.5",
+    "react": "^18.0.0" 
   },
   "devDependencies": {
-    "@microsoft/signalr": "^6.0.1",
+    "@microsoft/signalr": "^7.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@types/react": "^18.0.34",
@@ -22,15 +34,5 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "typescript": "^5.0.0"
-  },
-  "author": "Darhagonable",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Darhagonable/react-signalr.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Darhagonable/react-signalr/issues"
-  },
-  "homepage": "https://github.com/Darhagonable/react-signalr#readme"
+  }
 }

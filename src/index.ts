@@ -1,7 +1,11 @@
-import useSignalRHub from "./useSignalRHook";
-import { setDefaults } from "./globals";
+import useSignalRHub from "useSignalRHook";
+import { setDefaults } from "globals";
 
-export default {
+const signalR = {
   useSignalRHub,
-  setDefaults,
+  setDefaults
 };
+
+export { default as useSignalRHub } from "useSignalRHook";
+export type { Options } from "types";
+export default signalR;

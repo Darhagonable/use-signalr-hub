@@ -9,6 +9,23 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/strict"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": ".",
+    "project": [
+      "./tsconfig.json"
+    ],
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "rules": {
     "eqeqeq": [
       "warn",
