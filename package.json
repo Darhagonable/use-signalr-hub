@@ -1,6 +1,6 @@
 {
   "name": "use-signalr-hub",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Easy to use hook for signalr",
   "author": "Darhagonable",
   "license": "MIT",
@@ -14,8 +14,9 @@
   "homepage": "https://github.com/Darhagonable/use-signalr-hub#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "build": "tsc --declaration --outDir dist",
+    "build": "tsc",
     "lint": "eslint --fix ./src"
   },
   "peerDependencies": {
