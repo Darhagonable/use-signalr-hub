@@ -6,7 +6,7 @@ Easy to use React hook for signalR
 ## Getting started
 
 Install using your preferred package manager:
-```console
+```
 npm install use-signalr-hub
 yarn add use-signalr-hub
 ```
@@ -45,7 +45,7 @@ const handleSubmit = (message, user) => {
 ### configure defaults
 ```ts
 signalR.setDefaults({
-  httpConnectionOptions: {
+  httpTransportTypeOrOptions: {
     accessTokenFactory: () => user.userData.token
   },
   automaticReconnect: false

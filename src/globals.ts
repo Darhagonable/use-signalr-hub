@@ -5,15 +5,11 @@ const DEFAULTS: Options = {
   automaticReconnect: true
 };
 
-export let defaultOptions: Options;
+export let defaultOptions: Options = DEFAULTS;
 
 export const setDefaults = (options: Options) => {
   defaultOptions = {
     ...DEFAULTS,
-    ...options,
-    httpConnectionOptions: {
-      ...DEFAULTS.httpConnectionOptions,
-      ...options.httpConnectionOptions
-    }
+    ...options
   };
 };

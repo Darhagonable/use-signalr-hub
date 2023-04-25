@@ -2,7 +2,10 @@ import {
   HubConnection,
   IHttpConnectionOptions,
   LogLevel,
-  ILogger
+  ILogger,
+  HttpTransportType,
+  IHubProtocol,
+  IRetryPolicy
 } from "@microsoft/signalr";
 
 export interface Options {
@@ -10,7 +13,8 @@ export interface Options {
   onDisconnected?: () => void;
   onError?: (error: Error) => void;
   enabled?: boolean;
-  automaticReconnect?: boolean;
-  httpConnectionOptions?: IHttpConnectionOptions;
+  automaticReconnect?: number[] | IRetryPolicy | boolean;
+  httpTransportTypeOrOptions?: IHttpConnectionOptions | HttpTransportType;
+  hubProtocol?: IHubProtocol;
   logging?: LogLevel | string | ILogger;
 }

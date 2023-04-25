@@ -24,15 +24,23 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
-    hubConnectionSetup.withUrl(hubUrl, {
-      ...optionsRef.current.httpConnectionOptions
-    });
+    if(optionsRef.current.httpTransportTypeOrOptions)
+      // @ts-expect-error We don't care about abiding by the overloads
+      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.httpTransportTypeOrOptions);
 
-    if(optionsRef.current.automaticReconnect)
-      hubConnectionSetup.withAutomaticReconnect();
+    if(optionsRef.current.automaticReconnect) {
+      if(optionsRef.current.automaticReconnect === true)
+        hubConnectionSetup.withAutomaticReconnect();
+      else
+        // @ts-expect-error We don't care about abiding by the overloads
+        hubConnectionSetup.withAutomaticReconnect(optionsRef.current.automaticReconnect);
+    }
 
     if(optionsRef.current.logging)
       hubConnectionSetup.configureLogging(optionsRef.current.logging);
+
+    if(optionsRef.current.hubProtocol)
+      hubConnectionSetup.withHubProtocol(optionsRef.current.hubProtocol);
 
     const hubConnection = hubConnectionSetup.build();
 
@@ -40,7 +48,7 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
       .start()
       .then(() => {
         if (canceled) {
-          hubConnection.stop();
+          hubConnection.stop().then(optionsRef.current.onDisconnected);
           return;
         }
         setSignalRHub(hubConnection);
@@ -53,10 +61,9 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     return () => {
       canceled = true;
-      optionsRef.current.onDisconnected?.();
       setSignalRHub(null);
       if (hubConnection.state === HubConnectionState.Connected)
-        hubConnection.stop();
+        hubConnection.stop().then(optionsRef.current.onDisconnected);
     };
   }, [hubUrl, optionsRef.current.enabled]);
 
