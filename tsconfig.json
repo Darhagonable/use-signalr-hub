@@ -19,8 +19,7 @@
     "noImplicitAny": true,
     "declaration": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "sourceMap": true
+    "baseUrl": "./src"
   },
   "include": [
     "src"

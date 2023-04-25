@@ -5,8 +5,8 @@ import {
   HubConnectionState
 } from "@microsoft/signalr";
 
-import { Options } from "types";
-import { defaultOptions } from "globals";
+import { Options } from "./types";
+import { defaultOptions } from "./globals";
 
 export default function useSignalRHub(hubUrl: string, options?: Options) {
 
