@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import {
   HubConnectionBuilder,
-  HubConnection
+  HubConnection,
+  HubConnectionState
 } from "@microsoft/signalr";
 
 import { Options } from "./types";
@@ -19,6 +20,7 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
   useEffect(() => {
     if(!optionsRef.current.enabled) return;
+    let isCanceled = false;
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
@@ -53,14 +55,20 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     hubConnection.start()
       .then(() => {
+        if (isCanceled) return;
         setSignalRHub(hubConnection);
         optionsRef.current.onConnected?.(hubConnection);
       })
-      .catch(optionsRef.current.onError);
+      .catch((error) => {
+        if (isCanceled) return;
+        optionsRef.current.onError?.(error);
+      });
 
     return () => {
-      hubConnection.stop();
+      isCanceled = true;
       setSignalRHub(null);
+      if (hubConnection.state === HubConnectionState.Connected)
+        hubConnection.stop();
     };
   }, [hubUrl, optionsRef.current.enabled]);
 

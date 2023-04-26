@@ -1,6 +1,6 @@
 {
   "name": "use-signalr-hub",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Easy to use hook for signalr",
   "author": "Darhagonable",
   "license": "MIT",
