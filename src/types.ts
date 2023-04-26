@@ -10,8 +10,10 @@ import {
 
 export interface Options {
   onConnected?: (hub: HubConnection) => void;
-  onDisconnected?: () => void;
-  onError?: (error: Error) => void;
+  onDisconnected?: (error?: Error) => void;
+  onReconnecting?: (error?: Error) => void;
+  onReconnected?: (connectionId?: string) => void;
+  onError?: (error?: Error) => void;
   enabled?: boolean;
   automaticReconnect?: number[] | IRetryPolicy | boolean;
   httpTransportTypeOrOptions?: IHttpConnectionOptions | HttpTransportType;
