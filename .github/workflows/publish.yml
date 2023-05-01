@@ -1,0 +1,26 @@
+name: 🚀 Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v3
+      - name: 🟢 Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - name: 💽 Install
+        run: yarn install --frozen-lockfile
+      - name: 🛠️ Build
+        run: yarn build
+      - name: 🚀 Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
