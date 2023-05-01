@@ -1,8 +1,7 @@
 import { Options } from "./types";
 
 const DEFAULTS: Options = {
-  enabled: true,
-  automaticReconnect: true
+  enabled: true
 };
 
 export let defaultOptions: Options = DEFAULTS;
