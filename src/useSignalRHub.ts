@@ -12,27 +12,31 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
   const [signalRHub, setSignalRHub] = useState<HubConnection | null>(null);
 
-  const optionsRef = useRef({...defaultOptions, ...options});
+  const optionsRef = useRef<Options>({...defaultOptions, ...options});
 
   useEffect(() => {
     optionsRef.current = {...defaultOptions, ...options};
   }, [options]);
 
   useEffect(() => {
-    if(!optionsRef.current.enabled) return;
+    if(!optionsRef.current.enabled)
+      return;
+
     let isCanceled = false;
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
     if(optionsRef.current.httpTransportTypeOrOptions)
-      // @ts-expect-error We don't care about abiding by the overloads
+      // @ts-expect-error: We don't need to adhere to the overloads.
       hubConnectionSetup.withUrl(hubUrl, optionsRef.current.httpTransportTypeOrOptions);
+    else
+      hubConnectionSetup.withUrl(hubUrl);
 
     if(optionsRef.current.automaticReconnect) {
       if(optionsRef.current.automaticReconnect === true)
         hubConnectionSetup.withAutomaticReconnect();
       else
-        // @ts-expect-error We don't care about abiding by the overloads
+        // @ts-expect-error: We don't need to adhere to the overloads.
         hubConnectionSetup.withAutomaticReconnect(optionsRef.current.automaticReconnect);
     }
 
@@ -44,31 +48,38 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     const hubConnection = hubConnectionSetup.build();
 
-    if(optionsRef.current.onDisconnected)
-      hubConnection.onclose(optionsRef.current.onDisconnected);
-
-    if(optionsRef.current.onReconnecting)
-      hubConnection.onreconnecting(optionsRef.current.onReconnecting);
-
-    if(optionsRef.current.onReconnected)
-      hubConnection.onreconnected(optionsRef.current.onReconnected);
-
     hubConnection.start()
       .then(() => {
-        if (isCanceled) return;
-        setSignalRHub(hubConnection);
+        if(isCanceled)
+          return hubConnection.stop();
+
         optionsRef.current.onConnected?.(hubConnection);
+
+        if(optionsRef.current.onDisconnected)
+          hubConnection.onclose(optionsRef.current.onDisconnected);
+
+        if(optionsRef.current.onReconnecting)
+          hubConnection.onreconnecting(optionsRef.current.onReconnecting);
+
+        if(optionsRef.current.onReconnected)
+          hubConnection.onreconnected(optionsRef.current.onReconnected);
+
+        setSignalRHub(hubConnection);
       })
       .catch((error) => {
-        if (isCanceled) return;
+        if(isCanceled)
+          return;
+
         optionsRef.current.onError?.(error);
       });
 
     return () => {
       isCanceled = true;
-      setSignalRHub(null);
-      if (hubConnection.state === HubConnectionState.Connected)
+
+      if(hubConnection.state === HubConnectionState.Connected)
         hubConnection.stop();
+
+      setSignalRHub(null);
     };
   }, [hubUrl, optionsRef.current.enabled]);
 
