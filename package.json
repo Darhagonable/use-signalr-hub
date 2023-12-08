@@ -1,6 +1,6 @@
 {
   "name": "use-signalr-hub",
-  "version": "0.0.11",
+  "version": "1.0.0",
   "description": "Easy to use hook for signalr",
   "author": "Darhagonable",
   "license": "MIT",
@@ -14,31 +14,37 @@
   "homepage": "https://github.com/Darhagonable/use-signalr-hub#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint --fix ./src"
   },
   "peerDependencies": {
-    "@microsoft/signalr": "^7.0.0",
-    "react": "^18.0.0" 
+    "@microsoft/signalr": "^7.0.0 || ^8.0.0",
+    "react": "^18.0.0"
   },
   "devDependencies": {
-    "@microsoft/signalr": "^7.0.0",
-    "react": "^18.0.0",
+    "@microsoft/signalr": "^8.0.0",
     "@types/react": "^18.0.34",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "react": "^18.0.0",
     "typescript": "^5.0.0"
   },
   "keywords": [
+    "use signalr hub",
+    "react use signar",
+    "react signalr",
+    "signalr",
+    "hub",
     "react",
     "react hook",
-    "signalr",
-    "react signalr",
+    "websocket",
     "typescript"
   ]
 }

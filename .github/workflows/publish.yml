@@ -1,12 +1,12 @@
 name: 🚀 Publish
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
-  publish:
+  npm-publish:
+    name: Publish to NPM
     runs-on: ubuntu-latest
     steps:
       - name: 📚 Checkout
@@ -21,6 +21,48 @@ jobs:
       - name: 🛠️ Build
         run: yarn build
       - name: 🚀 Publish
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+
+  gpr-publish:
+    name: Publish to GitHub Package Registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v3
+
+      - name: Store lowercase actor name
+        run: |
+          echo 'actor_name<<EOF' >> $GITHUB_ENV
+          echo ${{ github.actor }} | tr "A-Z" "a-z" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Store package name
+        run: |
+          echo 'package_name<<EOF' >> $GITHUB_ENV
+          grep -Po '"name": *\K"[^"]*"' package.json | grep -oP '"\K[^"\047]+(?=["\047])' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: 🟢 Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+          scope: '${{env.actor_name}}'
+
+      - name: 💽 Install
+        run: yarn install --frozen-lockfile
+      - name: 🛠️ Build
+        run: yarn build
+
+      - name: Update Package Name
+        run: |
+          sed -i 's,"name": "${{env.package_name}}","name": "@${{env.actor_name}}/${{env.package_name}}",' package.json
+          cat package.json
+
+      - name: 🚀 Publish
+        run: npm publish --access public
+        env:
+          CI: true
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

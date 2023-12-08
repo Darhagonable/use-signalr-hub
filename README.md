@@ -1,4 +1,7 @@
 [![NPM Version](https://badge.fury.io/js/use-signalr-hub.svg)](https://npmjs.org/package/use-signalr-hub)
+[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/Darhagonable/use-signalr-hub/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue)](https://makeapullrequest.com)
+[![GitHub Repo stars](https://img.shields.io/github/stars/Darhagonable/use-signalr-hub?style=social)](https://github.com/Darhagonable/use-signalr-hub/stargazers)
 
 # useSignalRHub
 An easy to use React hook for [@microsoft/signalr](https://www.npmjs.com/package/@microsoft/signalr)
@@ -9,35 +12,35 @@ Please use Microsoft's [Documentation](https://learn.microsoft.com/en-us/aspnet/
 
 ### Install using your preferred package manager
 ```console
-$ npm install use-signalr-hub
-$ yarn add use-signalr-hub
+$ npm install use-signalr-hub @microsoft/signalr
+$ yarn add use-signalr-hub @microsoft/signalr
 ```
 
 ### Import into your project
 ```tsx
-import signalR, { useSignalRHub } from "use-signalr-hub"
+import signalR from "use-signalr-hub"
 ```
 ### Use in your React component
 ```tsx
-const signalRHub = useSignalRHub("/chathub", {
+const signalRHub = signalR.useHub("https://www.example.com/hub", {
   onConnected: (hub) => {
-    console.log("Connected to /chathub", hub)
+    // Connected to hub
     hub.on("ReceiveMessage", (user, message) => {
-      setMessage({user, message})
+      // Listen to "ReceiveMessage" on hub
     })
   },
-  onDisconnected: () => {
-    console.log("Disconnected from /chathub")
+  onDisconnected: (error) => {
+    // Disconnected from hub
   },
   onError: (error) => {
-    console.log("Connection to /chathub failed with error", error)
+    // Failed to connect to hub
   }
 })
 
-const handleSubmit = (message, user) => {
+const handleSubmit = (user, message) => {
   signalRHub.invoke("SendMessage", user, message)
     .catch((error) => {
-      console.log("Failed to invoke SendMessage on /chathub", error)
+      // Failed to invoke "SendMessage" on hub
     })
 }
 ```
@@ -53,7 +56,7 @@ signalR.setDefaults({
 
 ## Api
 ```ts
-const signalRHub = useSignalRHub(hubUrl, {
+const signalRHub = signalR.useHub(hubUrl, {
   onConnected,
   onDisconnected,
   onReconnecting,

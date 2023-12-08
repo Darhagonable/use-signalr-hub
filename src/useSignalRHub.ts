@@ -9,9 +9,7 @@ import { Options } from "./types";
 import { defaultOptions } from "./globals";
 
 export default function useSignalRHub(hubUrl: string, options?: Options) {
-
   const [signalRHub, setSignalRHub] = useState<HubConnection | null>(null);
-
   const optionsRef = useRef<Options>({...defaultOptions, ...options});
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
     const hubConnectionSetup = new HubConnectionBuilder();
 
     if(optionsRef.current.httpTransportTypeOrOptions)
-      // @ts-expect-error: We don't need to adhere to the overloads.
+      // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
       hubConnectionSetup.withUrl(hubUrl, optionsRef.current.httpTransportTypeOrOptions);
     else
       hubConnectionSetup.withUrl(hubUrl);
@@ -36,7 +34,7 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
       if(optionsRef.current.automaticReconnect === true)
         hubConnectionSetup.withAutomaticReconnect();
       else
-        // @ts-expect-error: We don't need to adhere to the overloads.
+        // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
         hubConnectionSetup.withAutomaticReconnect(optionsRef.current.automaticReconnect);
     }
 
@@ -53,7 +51,8 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
         if(isCanceled)
           return hubConnection.stop();
 
-        optionsRef.current.onConnected?.(hubConnection);
+        if(optionsRef.current.onConnected)
+          optionsRef.current.onConnected(hubConnection);
 
         if(optionsRef.current.onDisconnected)
           hubConnection.onclose(optionsRef.current.onDisconnected);
@@ -70,7 +69,8 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
         if(isCanceled)
           return;
 
-        optionsRef.current.onError?.(error);
+        if(optionsRef.current.onError)
+          optionsRef.current.onError(error);
       });
 
     return () => {

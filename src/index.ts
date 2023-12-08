@@ -2,7 +2,7 @@ import useSignalRHub from "./useSignalRHub";
 import { setDefaults } from "./globals";
 
 const signalR = {
-  useSignalRHub,
+  useHub: useSignalRHub,
   setDefaults
 };
 
