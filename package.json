@@ -22,11 +22,11 @@
     "lint": "eslint --fix ./src"
   },
   "peerDependencies": {
-    "@microsoft/signalr": "^7.0.0 || ^8.0.0",
-    "react": "^18.0.0"
+    "@microsoft/signalr": ">=7.0.0",
+    "react": ">=18.0.0"
   },
   "devDependencies": {
-    "@microsoft/signalr": "^8.0.0",
+    "@microsoft/signalr": "^9.0.0",
     "@types/react": "^18.0.34",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
