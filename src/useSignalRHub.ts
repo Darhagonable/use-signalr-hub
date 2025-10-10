@@ -5,12 +5,14 @@ import {
   HubConnectionState
 } from "@microsoft/signalr";
 
-import { Options } from "./types";
+import { Options, OOptions, TOptions } from "./types";
 import { defaultOptions } from "./globals";
 
+export default function useSignalRHub(hubUrl: string, options?: OOptions): HubConnection | null;
+export default function useSignalRHub(hubUrl: string, options?: TOptions): HubConnection | null;
 export default function useSignalRHub(hubUrl: string, options?: Options) {
   const [signalRHub, setSignalRHub] = useState<HubConnection | null>(null);
-  const optionsRef = useRef<Options>({...defaultOptions, ...options});
+  const optionsRef = useRef<OOptions & TOptions>({...defaultOptions, ...options});
 
   useEffect(() => {
     optionsRef.current = {...defaultOptions, ...options};
@@ -24,9 +26,10 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
-    if(optionsRef.current.connectionOptionsOrTransportType)
-      // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
-      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.connectionOptionsOrTransportType);
+    if(optionsRef.current.connectionOptions)
+      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.connectionOptions);
+    else if (optionsRef.current.transportType)
+      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.transportType);
     else
       hubConnectionSetup.withUrl(hubUrl);
 

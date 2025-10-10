@@ -1,4 +1,4 @@
-import { Options } from "./types";
+import { Options, OOptions, TOptions } from "./types";
 
 const DEFAULTS: Options = {
   enabled: true
@@ -6,9 +6,11 @@ const DEFAULTS: Options = {
 
 export let defaultOptions: Options = DEFAULTS;
 
-export const setDefaults = (options: Options) => {
+export function setDefaults(options: OOptions): void
+export function setDefaults(options: TOptions): void
+export function setDefaults(options: Options) {
   defaultOptions = {
     ...DEFAULTS,
     ...options
   };
-};
+}
