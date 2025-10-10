@@ -16,7 +16,7 @@ export interface Options {
   onError?: (error?: Error) => void;
   enabled?: boolean;
   automaticReconnect?: number[] | IRetryPolicy | boolean;
-  httpTransportTypeOrOptions?: IHttpConnectionOptions | HttpTransportType;
+  connectionOptionsOrTransportType?: IHttpConnectionOptions | HttpTransportType;
   hubProtocol?: IHubProtocol;
   logging?: LogLevel | string | ILogger;
 }

@@ -24,9 +24,9 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
-    if(optionsRef.current.httpTransportTypeOrOptions)
+    if(optionsRef.current.connectionOptionsOrTransportType)
       // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
-      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.httpTransportTypeOrOptions);
+      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.connectionOptionsOrTransportType);
     else
       hubConnectionSetup.withUrl(hubUrl);
 

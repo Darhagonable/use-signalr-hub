@@ -47,7 +47,7 @@ const handleSubmit = (user, message) => {
 ### Configure defaults
 ```ts
 signalR.setDefaults({
-  httpTransportTypeOrOptions: {
+  connectionOptionsOrTransportType: {
     accessTokenFactory: () => user.userData.token
   },
   automaticReconnect: false
@@ -64,7 +64,7 @@ const signalRHub = signalR.useHub(hubUrl, {
   onError,
   enabled,
   automaticReconnect,
-  httpTransportTypeOrOptions,
+  connectionOptionsOrTransportType,
   hubProtocol,
   logging
 })
@@ -79,7 +79,7 @@ onReconnected?: (connectionId?: string) => void
 onError?: (error?: Error) => void
 enabled?: boolean
 automaticReconnect?: number[] | IRetryPolicy | boolean
-httpTransportTypeOrOptions?: IHttpConnectionOptions | HttpTransportType
+connectionOptionsOrTransportType?: IHttpConnectionOptions | HttpTransportType
 hubProtocol?: IHubProtocol
 logging?: LogLevel | string | ILogger
 ```
