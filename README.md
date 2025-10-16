@@ -17,11 +17,11 @@ $ yarn add use-signalr-hub @microsoft/signalr
 ```
 
 ### Import into your project
-```tsx
+```ts
 import signalR from "use-signalr-hub"
 ```
 ### Use in your React component
-```tsx
+```ts
 const signalRHub = signalR.useHub("https://www.example.com/hub", {
   onConnected: (hub) => {
     // Connected to hub
@@ -47,7 +47,7 @@ const handleSubmit = (user, message) => {
 ### Configure defaults
 ```ts
 signalR.setDefaults({
-  connectionOptionsOrTransportType: {
+  connectionOptions: {
     accessTokenFactory: () => user.userData.token
   },
   automaticReconnect: false
@@ -64,7 +64,7 @@ const signalRHub = signalR.useHub(hubUrl, {
   onError,
   enabled,
   automaticReconnect,
-  connectionOptionsOrTransportType,
+  connectionOptions,
   hubProtocol,
   logging
 })
@@ -79,7 +79,7 @@ onReconnected?: (connectionId?: string) => void
 onError?: (error?: Error) => void
 enabled?: boolean
 automaticReconnect?: number[] | IRetryPolicy | boolean
-connectionOptionsOrTransportType?: IHttpConnectionOptions | HttpTransportType
+connectionOptions?: IHttpConnectionOptions
 hubProtocol?: IHubProtocol
 logging?: LogLevel | string | ILogger
 ```
@@ -88,8 +88,6 @@ logging?: LogLevel | string | ILogger
 [IRetryPolicy](https://learn.microsoft.com/en-us/javascript/api/@microsoft/signalr/iretrypolicy)
 |
 [IHttpConnectionOptions](https://learn.microsoft.com/en-us/javascript/api/@microsoft/signalr/ihttpconnectionoptions)
-|
-[HttpTransportType](https://learn.microsoft.com/en-us/javascript/api/@microsoft/signalr/httptransporttype)
 |
 [IHubProtocol](https://learn.microsoft.com/en-us/javascript/api/@microsoft/signalr/ihubprotocol)
 |

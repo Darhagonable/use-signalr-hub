@@ -3,7 +3,6 @@ import {
   IHttpConnectionOptions,
   LogLevel,
   ILogger,
-  HttpTransportType,
   IHubProtocol,
   IRetryPolicy
 } from "@microsoft/signalr";
@@ -16,7 +15,7 @@ export interface Options {
   onError?: (error?: Error) => void;
   enabled?: boolean;
   automaticReconnect?: number[] | IRetryPolicy | boolean;
-  connectionOptionsOrTransportType?: IHttpConnectionOptions | HttpTransportType;
+  connectionOptions?: IHttpConnectionOptions;
   hubProtocol?: IHubProtocol;
   logging?: LogLevel | string | ILogger;
 }

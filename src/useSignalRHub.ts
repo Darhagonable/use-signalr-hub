@@ -24,17 +24,17 @@ export default function useSignalRHub(hubUrl: string, options?: Options) {
 
     const hubConnectionSetup = new HubConnectionBuilder();
 
-    if(optionsRef.current.connectionOptionsOrTransportType)
-      // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
-      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.connectionOptionsOrTransportType);
+    if(optionsRef.current.connectionOptions)
+      hubConnectionSetup.withUrl(hubUrl, optionsRef.current.connectionOptions);
     else
       hubConnectionSetup.withUrl(hubUrl);
 
     if(optionsRef.current.automaticReconnect) {
       if(optionsRef.current.automaticReconnect === true)
         hubConnectionSetup.withAutomaticReconnect();
+      else if(Array.isArray(optionsRef.current.automaticReconnect))
+        hubConnectionSetup.withAutomaticReconnect(optionsRef.current.automaticReconnect);
       else
-        // @ts-expect-error: We don't need to adhere to the overloads. https://github.com/microsoft/TypeScript/issues/14107
         hubConnectionSetup.withAutomaticReconnect(optionsRef.current.automaticReconnect);
     }
 
