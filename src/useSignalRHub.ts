@@ -4,16 +4,17 @@ import {
   HubConnection,
   HubConnectionState
 } from "@microsoft/signalr";
+import deepmerge from "deepmerge";
 
 import { Options } from "./types";
 import { defaultOptions } from "./globals";
 
-export default function useSignalRHub(hubUrl: string, options?: Options) {
+export default function useSignalRHub(hubUrl: string, options: Options = {}) {
   const [signalRHub, setSignalRHub] = useState<HubConnection | null>(null);
-  const optionsRef = useRef<Options>({...defaultOptions, ...options});
+  const optionsRef = useRef<Options>(deepmerge(defaultOptions, options));
 
   useEffect(() => {
-    optionsRef.current = {...defaultOptions, ...options};
+    optionsRef.current = deepmerge(defaultOptions, options);
   }, [options]);
 
   useEffect(() => {
