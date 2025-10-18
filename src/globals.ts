@@ -1,3 +1,4 @@
+import deepmerge from "deepmerge";
 import { Options } from "./types";
 
 const DEFAULTS: Options = {
@@ -7,8 +8,5 @@ const DEFAULTS: Options = {
 export let defaultOptions: Options = DEFAULTS;
 
 export const setDefaults = (options: Options) => {
-  defaultOptions = {
-    ...DEFAULTS,
-    ...options
-  };
+  defaultOptions = deepmerge(DEFAULTS, options);
 };
