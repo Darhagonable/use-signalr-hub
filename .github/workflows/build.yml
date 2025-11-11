@@ -20,6 +20,10 @@ jobs:
         run: npm ci
       - name: TypeScript type check
         run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test
       - name: Build package
         run: npm run build
       - name: Upload build artifacts
