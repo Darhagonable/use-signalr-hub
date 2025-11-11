@@ -39,10 +39,10 @@ describe("useSignalRHub", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    mockBuilder.withUrl.mockReturnValue(mockBuilder);
-    mockBuilder.withAutomaticReconnect.mockReturnValue(mockBuilder);
-    mockBuilder.configureLogging.mockReturnValue(mockBuilder);
-    mockBuilder.withHubProtocol.mockReturnValue(mockBuilder);
+    mockBuilder.withUrl.mockReturnThis();
+    mockBuilder.withAutomaticReconnect.mockReturnThis();
+    mockBuilder.configureLogging.mockReturnThis();
+    mockBuilder.withHubProtocol.mockReturnThis();
     mockBuilder.build.mockReturnValue(mockConnection);
 
     mockConnection.start.mockResolvedValue(undefined);
@@ -110,7 +110,7 @@ describe("useSignalRHub", () => {
   });
 
   it("should stop the connection on unmount if connected", async () => {
-    Object.defineProperty(mockConnection, "state", { value: HubConnectionState.Connected});
+    Object.defineProperty(mockConnection, "state", { value: HubConnectionState.Connected });
 
     const { unmount } = renderHook(() => useSignalRHub(testUrl));
 
