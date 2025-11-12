@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { configure, renderHook, waitFor } from "@testing-library/react";
 import {
   vi,
   describe,
@@ -16,6 +16,8 @@ import {
 
 import useSignalRHub from "./useSignalRHub";
 import { Options } from "./types";
+
+configure({reactStrictMode: true});
 
 const { mockBuilder, mockConnection } = await vi.hoisted(async () => {
   const { HubConnectionBuilder } = await import("@microsoft/signalr");
