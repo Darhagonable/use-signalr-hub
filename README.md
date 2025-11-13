@@ -1,7 +1,8 @@
 [![NPM Version](https://badge.fury.io/js/use-signalr-hub.svg)](https://npmjs.org/package/use-signalr-hub)
 [![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/Darhagonable/use-signalr-hub/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blue)](https://makeapullrequest.com)
-![Pipelines](https://github.com/Darhagonable/use-signalr-hub/actions/workflows/build.yml/badge.svg)
+![Build](https://github.com/Darhagonable/use-signalr-hub/actions/workflows/build.yml/badge.svg)
+![publish](https://github.com/Darhagonable/use-signalr-hub/actions/workflows/publish.yml/badge.svg)
 [![GitHub Repo stars](https://img.shields.io/github/stars/Darhagonable/use-signalr-hub?style=social)](https://github.com/Darhagonable/use-signalr-hub/stargazers)
 
 # useSignalRHub
