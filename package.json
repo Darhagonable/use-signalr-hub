@@ -18,8 +18,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint --fix ./src"
+    "build": "tsc --project tsconfig.build.json",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint --fix ./src",
+    "test": "vitest run --environment happy-dom --coverage.enabled"
   },
   "dependencies": {
     "deepmerge": "^4.3.1"
@@ -30,14 +32,19 @@
   },
   "devDependencies": {
     "@microsoft/signalr": "^9.0.0",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^18.0.34",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "happy-dom": "^20.0.10",
     "react": "^18.0.0",
-    "typescript": "^5.0.0"
+    "react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
   },
   "keywords": [
     "use signalr hub",
