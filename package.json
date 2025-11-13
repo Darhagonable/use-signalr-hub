@@ -18,7 +18,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --excludeFiles src/**/*.test.ts",
+    "type-check": "tsc --noEmit",
     "lint": "eslint --fix ./src",
     "test": "vitest run --environment happy-dom --coverage.enabled"
   },
